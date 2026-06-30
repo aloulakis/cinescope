@@ -1,0 +1,18 @@
+//
+//  FavoritesView.swift
+//  CineScope
+//
+//  Created by Alexandros Loulakis on 19/6/26.
+//
+
+import SwiftUI
+
+struct FavoritesView: View {
+    var body: some View {
+        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+    }
+}
+
+#Preview {
+    FavoritesView()
+}
