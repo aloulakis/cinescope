@@ -9,12 +9,6 @@ import SwiftUI
 
 @main
 struct CineScopeApp: App {
-//    init() {
-//        APIClient.shared.getToken(token: Secrets.tmdbToken)
-//    }
-    
-    //let apiClient = APIClient(token: Secrets.tmdbToken)
-    
     var body: some Scene {
         WindowGroup {
             HomeTabView()

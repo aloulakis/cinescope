@@ -13,43 +13,23 @@ struct CreditsView: View {
     let id: Int
     
     var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            
-            HStack(alignment: .top, spacing: 13){
-                ForEach(vm.cast, id: \.id) { cast in
-                    VStack{
-                        loadImage(path: cast.profilePath)
-                            .frame(width: 100)
-                        
-                        Text(cast.name)
-                            .foregroundStyle(.gray)
-                            .font(.caption)
-                            .multilineTextAlignment(.center)
-                            .lineLimit(2)
-                            .frame(width:100)
+        VStack(alignment: .leading, spacing: 10) {
+            Text("Cast")
+                .foregroundStyle(.white)
+            ScrollView(.horizontal, showsIndicators: false) {
+                VStack {
+                    HStack(alignment: .top, spacing: 13){
+                        ForEach(vm.cast, id: \.id) { cast in
+                            CastCard(name: cast.name, profilePath: cast.profilePath)
+                        }
                     }
-                    .padding(.bottom)
-                    //.background(.yellow)
-                    .frame(width: 100)
                 }
             }
-        }
-        .padding()
-        .onAppear() {
-            vm.loadCredits(id: id)
-        }
-    }
-
-    private func loadImage(path: String) -> some View {
-        KFImage(URL(string:"https://image.tmdb.org/t/p/w342/\(path)"))
-            .placeholder {
-                Image(systemName: "person.circle.fill")
-                    .resizable()
-                    .foregroundStyle(.gray)
+            .padding()
+            .onAppear() {
+                vm.loadCredits(id: id)
             }
-            .resizable()
-            .clipShape(Capsule())
-            .frame(width: 100, height: 100)
+        }
     }
 }
 
@@ -57,21 +37,3 @@ struct CreditsView: View {
     CreditsView(id: 550)
 }
 
-
-
-//HStack {
-//    ForEach(vm.cast) { cast in
-//        VStack() {
-//            loadImage(path: cast.profilePath)
-//                
-//            Text(cast.name)
-//                .foregroundStyle(.gray)
-//                .font(.caption)
-//                .multilineTextAlignment(.center)
-//                .lineLimit(2)
-//                .frame(width: 90)
-//        }
-//        .frame(height: 150)
-//    }
-//
-//}

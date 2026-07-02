@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct MovieModel: Identifiable {
+struct MovieModel: Identifiable, Codable {
     let id: Int
-    let title: String
-    let posterPath: String
-    let voteAverage: Double
+    let title: String?
+    let posterPath: String?
+    let voteAverage: Double?
 
     // pairnw to Response Apo to Movie kai krataw ta dedomena edw
     init(movie: Movie) {
@@ -20,4 +20,13 @@ struct MovieModel: Identifiable {
         self.posterPath = movie.poster_path ?? ""
         self.voteAverage = movie.vote_average
     }
+    
+    init(details: DetailModel) {
+        self.id = details.id
+        self.title = details.title ?? ""
+        self.posterPath = details.posterPath ?? ""
+        self.voteAverage = Double(details.voteAverage ?? "") ?? 0
+    }
+    
+
 }

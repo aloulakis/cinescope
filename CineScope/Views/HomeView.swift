@@ -38,7 +38,9 @@ struct HomeView: View {
                     }
                     .padding(.horizontal)
                 }
-                .background(.black.opacity(0.9))
+                .background((
+                    LinearGradient(gradient: Gradient(colors: [.black, .gray.opacity(0.1)]), startPoint: .top, endPoint: .bottom)
+                ))
             }
         }
     }

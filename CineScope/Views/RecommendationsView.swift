@@ -12,16 +12,19 @@ struct RecommendationsView: View {
     let id: Int
     
     var body: some View {
-        
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(alignment: .top) {
-                ForEach(vm.recommendations) { movie in
-                    MovieCard(title: movie.title, image: movie.posterPath, id: movie.id)
+        VStack(alignment: .leading, spacing: 10) {
+            Text("More like this")
+                .foregroundStyle(.white)
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(alignment: .top) {
+                    ForEach(vm.recommendations) { movie in
+                        MovieCard(title: movie.title, image: movie.posterPath, id: movie.id)
+                    }
                 }
             }
-        }
-        .onAppear() {
-            vm.loadRecommendations(id: id)
+            .onAppear() {
+                vm.loadRecommendations(id: id)
+            }
         }
     }
 }

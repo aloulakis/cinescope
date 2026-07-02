@@ -9,10 +9,10 @@ import Foundation
 
 struct CrewModel {
     let id: Int
-    let name: String
-    let profilePath: String
-    let department: String
-    let job: String
+    let name: String?
+    let profilePath: String?
+    let department: String?
+    let job: String?
     
     init(crew: Crew) {
         self.id = crew.id ?? 0

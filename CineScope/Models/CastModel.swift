@@ -7,9 +7,9 @@
 
 struct CastModel: Identifiable {
     let id: Int
-    let name: String
-    let profilePath: String
-    let character: String
+    let name: String?
+    let profilePath: String?
+    let character: String?
     
     
     init (cast: Cast) {
