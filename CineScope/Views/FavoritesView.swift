@@ -22,6 +22,8 @@ struct FavoritesView: View {
                 LazyVGrid(columns: layout){
                     ForEach(vm.favorites) { movie in
                         MovieCard(title: movie.title, image: movie.posterPath, id: movie.id)
+                            .frame(maxHeight: .infinity, alignment: .top)
+                            
                             .overlay(alignment: .topTrailing) {
                                 Button {
                                     vm.toggleFavorite(movie: movie)
@@ -33,10 +35,11 @@ struct FavoritesView: View {
                             }
                     }
                 }
+               // .frame(maxHeight: .infinity, alignment: .top)
             }
-            .background((
+            .background(
                 LinearGradient(gradient: Gradient(colors: [.gray.opacity(0.1), .black]), startPoint: .top, endPoint: .bottom)
-            ))
+            )
             .navigationTitle("Favorites")
         }
     }
