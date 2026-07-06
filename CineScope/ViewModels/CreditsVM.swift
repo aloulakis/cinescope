@@ -14,7 +14,6 @@ final class CreditsVM: ObservableObject {
 
     @Published var state: ViewState = .loading
 
-
     private func fetchCredits(id: Int) async {
         state = .loading
         do {

@@ -28,18 +28,20 @@ final class APIClient: APIClientProtocol {
 
         let (data, _) = try await URLSession.shared.data(for: request)
         
-        //print(String(data: data, encoding: .utf8) ?? "No data")
-        
         let response = try JSONDecoder().decode(T.self, from: data)
         
         return response
     }
     
     private func makeURL(for endpoint: Endpoint) -> URL? {
-        URL(string: baseURL + endpoint.path)
+        guard var components = URLComponents(string: baseURL + endpoint.path) else {
+            return nil
+        }
+        if !endpoint.queryItems.isEmpty {
+            components.queryItems = endpoint.queryItems
+        }
+        print(components)
+        return components.url
     }
 }
 
-//    func fetchTrending() async throws -> MovieListResponse {
-//        return try await request(.trending)
-//    }
