@@ -30,4 +30,10 @@ final class SearchVM: ObservableObject {
         }
     }
     
+    func loadSearches() {
+        Task{
+            await fetchSearchMovie()
+        }
+    }
+    
 }

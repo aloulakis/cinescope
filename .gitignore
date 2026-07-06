@@ -1,1 +1,5 @@
 Secret.plist
+
+# Xcode per-user files (personal UI state, not code)
+xcuserdata/
+*.xcuserstate

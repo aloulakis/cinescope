@@ -18,6 +18,7 @@ struct FavoritesView: View {
     
     var body: some View {
         NavigationView {
+            
             ScrollView {
                 LazyVGrid(columns: layout){
                     ForEach(vm.favorites) { movie in
