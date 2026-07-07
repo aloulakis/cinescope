@@ -17,9 +17,19 @@ struct MovieCard: View {
         NavigationLink(destination: DetailView(id: id)) {
             VStack() {
                 KFImage(URL(string: "https://image.tmdb.org/t/p/w342/\(image ?? "")"))
+                    .placeholder {
+                        ZStack {
+                            Rectangle()
+                                .fill(Color(.gray.opacity(0.5)))
+                            Image(systemName: "film")
+                                .font(.largeTitle)
+                                .foregroundStyle(.secondary)
+                        }
+                    }
                     .resizable()
                     .clipShape(RoundedRectangle(cornerRadius: 8))
                     .frame(width: 110, height: 200)
+
 
                 Text(title ?? "Untitled")
                     .foregroundStyle(.white)

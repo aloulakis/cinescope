@@ -31,16 +31,24 @@ struct HomeView: View {
                 Text(error)
             case .loaded:
                 ScrollView(.vertical, showsIndicators: false) {
+                    Text("CineScope")
+                        .foregroundStyle(
+                            LinearGradient(gradient: Gradient(colors: [.blue, .red]), startPoint: .leading, endPoint: .trailing)
+                        )
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .font(.largeTitle)
+                        .padding(.bottom)
                     VStack(spacing: 4) {
                         ForEach(sections, id: \.title) { section in
                             movieSection(title: section.title, movies: section.movies)
                         }
                     }
-                    .padding(.horizontal)
+                    //.padding(.horizontal)
                 }
-                .background((
+                
+                .background(
                     LinearGradient(gradient: Gradient(colors: [.black, .gray.opacity(0.1)]), startPoint: .top, endPoint: .bottom)
-                ))
+                )
             }
         }
     }
@@ -49,15 +57,9 @@ struct HomeView: View {
         VStack {
             HStack {
                 Text(title)
-                    .font(.headline)
-                    .foregroundStyle(
-                        LinearGradient(gradient: Gradient(colors: [.blue, .gray.opacity(0.7)]), startPoint: .leading, endPoint: .trailing)
-                    )
-                    .padding(.horizontal, 6)
-                    .background(
-                        LinearGradient(gradient: Gradient(colors: [.red, .gray.opacity(0.1)]), startPoint: .trailing, endPoint: .leading)
-                    )
-                    .clipShape(Capsule())
+                    .font(.system(size: 20, weight: .bold, design: .rounded))
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 10)
 
                 Spacer()
 

@@ -18,13 +18,16 @@ struct FavoritesView: View {
     
     var body: some View {
         NavigationView {
-            
-            ScrollView {
+            ScrollView(.vertical, showsIndicators: false) {
+                Text("Favorites")
+                    .foregroundStyle(.white)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .font(.largeTitle)
+                    .padding(.bottom)
                 LazyVGrid(columns: layout){
-                    ForEach(vm.favorites) { movie in
+                    ForEach(vm.favorites, id: \.id) { movie in
                         MovieCard(title: movie.title, image: movie.posterPath, id: movie.id)
                             .frame(maxHeight: .infinity, alignment: .top)
-                            
                             .overlay(alignment: .topTrailing) {
                                 Button {
                                     vm.toggleFavorite(movie: movie)
@@ -36,12 +39,12 @@ struct FavoritesView: View {
                             }
                     }
                 }
-               // .frame(maxHeight: .infinity, alignment: .top)
+                //.frame(maxHeight: .infinity, alignment: .top)
             }
             .background(
-                LinearGradient(gradient: Gradient(colors: [.gray.opacity(0.1), .black]), startPoint: .top, endPoint: .bottom)
+                LinearGradient(gradient: Gradient(colors: [.black, .gray.opacity(0.1)]), startPoint: .top, endPoint: .bottom)
             )
-            .navigationTitle("Favorites")
+
         }
     }
 }
