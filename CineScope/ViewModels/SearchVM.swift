@@ -18,21 +18,23 @@ final class SearchVM: ObservableObject {
     private var currentPage = 1
     private var totalPages = 1
 
-    func fetchSearchMovie(currentPage: Int) async {
+    func fetchSearchMovie(page: Int) async {
         state = .loading
         
         do {
-            let response: MovieListResponse = try await APIClient.shared.request(.search(query: searchText, page: currentPage))
-
-            if currentPage == 1 {
-                searchMovies = response.results.map { MovieModel(movie: $0) }
+            let response: MovieListResponse = try await APIClient.shared.request(.search(query: searchText, page: page))
+            
+            let pageResult = MoviePage(response: response)
+            let movies = pageResult.results.map { MovieModel(movie: $0) }
+            
+            if page == 1 {
+                searchMovies = movies
             } else {
-                print(searchMovies, "--------------------------------------")
-                searchMovies += response.results.map { MovieModel(movie: $0) }
-                
+                searchMovies += movies
             }
-            self.totalPages = response.totalPages
-            self.currentPage = currentPage
+            
+            self.totalPages = pageResult.totalPages
+            self.currentPage = page
             
             state = .loaded
         }
@@ -43,7 +45,7 @@ final class SearchVM: ObservableObject {
     
     func loadSearches(page: Int) {
         Task{
-            await fetchSearchMovie(currentPage: page)
+            await fetchSearchMovie(page: page)
         }
     }
     
