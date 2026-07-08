@@ -43,11 +43,10 @@ struct HomeView: View {
                             movieSection(title: section.title, movies: section.movies)
                         }
                     }
-                    //.padding(.horizontal)
                 }
                 
                 .background(
-                    LinearGradient(gradient: Gradient(colors: [.black, .gray.opacity(0.1)]), startPoint: .top, endPoint: .bottom)
+                    LinearGradient(gradient: Gradient(colors: [.black, .blue.opacity(0.4)]), startPoint: .top, endPoint: .bottom)
                 )
             }
         }

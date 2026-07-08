@@ -42,7 +42,7 @@ struct FavoritesView: View {
                 //.frame(maxHeight: .infinity, alignment: .top)
             }
             .background(
-                LinearGradient(gradient: Gradient(colors: [.black, .gray.opacity(0.1)]), startPoint: .top, endPoint: .bottom)
+                LinearGradient(gradient: Gradient(colors: [.black, .blue.opacity(0.4)]), startPoint: .top, endPoint: .bottom)
             )
 
         }

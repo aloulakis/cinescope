@@ -17,7 +17,7 @@ enum Endpoint {
     case credits(id: Int)
     case collectionDetails(collectionId: Int)
     case recommendations(id: Int)
-    case search(query: String)
+    case search(query: String, page: Int)
 
     
     var path: String {
@@ -57,8 +57,9 @@ enum Endpoint {
     }
     var queryItems: [URLQueryItem] {
         switch self {
-        case .search(query: let query):
-            return [URLQueryItem(name: "query", value: query)]
+        case .search(query: let query, page: let page):
+            return [URLQueryItem(name: "query", value: query),
+                    URLQueryItem(name: "page", value: "\(page)")]
         default:
             return []
         }

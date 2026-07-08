@@ -19,7 +19,7 @@ struct MovieModel: Identifiable, Codable {
         self.id = movie.id
         self.title = movie.title ?? ""
         self.posterPath = movie.poster_path ?? ""
-        self.voteAverage = movie.vote_average
+        self.voteAverage = movie.vote_average ?? 0.0
 //        self.isFsvorite = SingleTon.shared.isFavorite(id: id)
     }
     

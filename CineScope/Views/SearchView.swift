@@ -17,33 +17,52 @@ struct SearchView: View {
     ]
     
     var body: some View {
-        VStack {
-            TextField("Search a movie", text: $vm.searchText)
-                .font(.title2)
-                .padding()
-                .background(
-                    LinearGradient(gradient: Gradient(colors: [.gray.opacity(0.1), .black.opacity(0.7)]), startPoint: .leading, endPoint: .trailing)
-                )
-                .cornerRadius(10)
-  
-                .onChange(of: vm.searchText) {
-                        vm.loadSearches()
-                }
-
-            ScrollView(.vertical, showsIndicators: false) {
-                LazyVGrid(columns: layout) {
-                    ForEach(vm.searchMovies){ movie in
-                        VStack(alignment: .leading) {
-                            MovieCard(title: movie.title, image: movie.posterPath, id: movie.id)
-                                .frame(maxHeight: .infinity, alignment: .top)
+        NavigationView {
+            VStack {
+                TextField("Search movies", text: $vm.searchText)
+                    
+                    .font(.title)
+                    .font(Font.title.bold())
+                    .foregroundColor(.red)
+                    .padding()
+                    
+                    
+                
+                    .background(.blue.opacity(0.1)
+                    )
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(
+                                LinearGradient(gradient: Gradient(colors: [.blue, .red]), startPoint: .leading, endPoint: .trailing),
+                                lineWidth: 5)
+                    )
+                    .cornerRadius(10)
+                
+                    .onChange(of: vm.searchText) {
+                        vm.loadSearches(page: 1)
+                    }
+                
+                ScrollView(.vertical, showsIndicators: false) {
+                    LazyVGrid(columns: layout) {
+                        ForEach(vm.searchMovies, id: \.id){ movie in
+                            VStack(alignment: .leading) {
+                                MovieCard(title: movie.title, image: movie.posterPath, id: movie.id)
+                                    .frame(maxHeight: .infinity,  alignment: .top)
+                            }
+                            .onAppear {
+                                if movie.id == vm.searchMovies.last?.id {
+                                    vm.loadNextPage()
+                                }
+                            }
                         }
                     }
+                    .frame(maxWidth: .infinity)
                 }
             }
+            .background(
+                LinearGradient(gradient: Gradient(colors: [.black, .blue.opacity(0.4)]), startPoint: .top, endPoint: .bottom)
+            )
         }
-        .background(
-            LinearGradient(gradient: Gradient(colors: [.gray.opacity(0.1), .black]), startPoint: .top, endPoint: .bottom)
-        )
     }
 }
 
