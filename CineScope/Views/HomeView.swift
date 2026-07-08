@@ -40,7 +40,8 @@ struct HomeView: View {
                         .font(.largeTitle)
                         .padding(.bottom)
                     
-                    featuredMovie(image: vm.trending.first?.backdropPath)
+                    featuredMovie(path: vm.trending[9].backdropPath,
+                                  id: vm.trending[9].id)
                         .padding(.bottom)
                     
                     VStack(spacing: 4) {
@@ -56,22 +57,33 @@ struct HomeView: View {
         }
     }
     
-    private func featuredMovie(image: String?) -> some View {
-        VStack{
-            KFImage(URL(string: "https://image.tmdb.org/t/p/w780/\(image ?? "")"))
-                .placeholder {
-                    ZStack {
-                        Rectangle()
-                            .fill(Color(.gray.opacity(0.5)))
-                        Image(systemName: "film")
-                            .font(.largeTitle)
-                            .foregroundStyle(.secondary)
-                    }
-                }
-                .resizable()
-                .aspectRatio(16/9, contentMode: .fit)
-                //.clipShape(RoundedRectangle(cornerRadius: 8))
+    private func featuredMovie(path: String?, id: Int?) -> some View {
+        NavigationLink(destination: DetailView(id: id ?? 0)) {
+            ZStack(alignment: .topLeading){
+                loadImage(path: path ?? "", size: "w780", aspectRatio: 16/9)
+                
+                loadImage(path: vm.trending[9].posterPath ?? "", size: "w342", aspectRatio: 2/3)
+                    .frame(width: 100)
+                    .padding(.leading, 8)
+                    .clipShape(.rect)
+            }
         }
+    }
+    
+    private func loadImage(path: String, size: String, aspectRatio: CGFloat) -> some View {
+        KFImage(URL(string:"https://image.tmdb.org/t/p/\(size)/\(path)"))
+            .placeholder {
+                ZStack {
+                    Rectangle()
+                        .fill(Color(.gray.opacity(0.5)))
+                    Image(systemName: "film")
+                        .font(.largeTitle)
+                        .foregroundStyle(.secondary)
+                }
+            }
+            .resizable()
+            .scaledToFit()
+            //.aspectRatio(aspectRatio, contentMode: .fit)
     }
 
     private func movieSection(title: String, movies: [MovieModel]) -> some View {
