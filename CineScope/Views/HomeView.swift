@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct HomeView: View {
     @StateObject var vm = HomeVM()
@@ -38,17 +39,38 @@ struct HomeView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .font(.largeTitle)
                         .padding(.bottom)
+                    
+                    featuredMovie(image: vm.trending.first?.backdropPath)
+                        .padding(.bottom)
+                    
                     VStack(spacing: 4) {
                         ForEach(sections, id: \.title) { section in
                             movieSection(title: section.title, movies: section.movies)
                         }
                     }
                 }
-                
                 .background(
                     LinearGradient(gradient: Gradient(colors: [.black, .blue.opacity(0.4)]), startPoint: .top, endPoint: .bottom)
                 )
             }
+        }
+    }
+    
+    private func featuredMovie(image: String?) -> some View {
+        VStack{
+            KFImage(URL(string: "https://image.tmdb.org/t/p/w780/\(image ?? "")"))
+                .placeholder {
+                    ZStack {
+                        Rectangle()
+                            .fill(Color(.gray.opacity(0.5)))
+                        Image(systemName: "film")
+                            .font(.largeTitle)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+                .resizable()
+                .aspectRatio(16/9, contentMode: .fit)
+                //.clipShape(RoundedRectangle(cornerRadius: 8))
         }
     }
 

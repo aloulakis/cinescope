@@ -18,7 +18,12 @@ struct SearchView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
+            VStack(spacing: 0) {
+                Text("Search")
+                    .foregroundStyle(.white)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .font(.largeTitle)
+
                 TextField("Search movies", text: $vm.searchText)
                     
                     .font(.title)
