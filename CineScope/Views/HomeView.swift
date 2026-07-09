@@ -62,10 +62,18 @@ struct HomeView: View {
             ZStack(alignment: .topLeading){
                 loadImage(path: path ?? "", size: "w780", aspectRatio: 16/9)
                 
+                
                 loadImage(path: vm.trending[9].posterPath ?? "", size: "w342", aspectRatio: 2/3)
                     .frame(width: 100)
+                    
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(
+                                .blue.opacity(0.4),
+                                lineWidth: 3)
+                    )
                     .padding(.leading, 8)
-                    .clipShape(.rect)
             }
         }
     }
