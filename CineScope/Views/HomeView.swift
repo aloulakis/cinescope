@@ -62,7 +62,6 @@ struct HomeView: View {
             ZStack(alignment: .topLeading){
                 loadImage(path: path ?? "", size: "w780", aspectRatio: 16/9)
                 
-                
                 loadImage(path: vm.trending[9].posterPath ?? "", size: "w342", aspectRatio: 2/3)
                     .frame(width: 100)
                     
@@ -106,6 +105,7 @@ struct HomeView: View {
 
                 Button("See all") {}
                     .foregroundStyle(.blue)
+                    .padding(.trailing)
             }
 
             ScrollView(.horizontal, showsIndicators: false) {

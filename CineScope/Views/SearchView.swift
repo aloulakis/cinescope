@@ -23,8 +23,7 @@ struct SearchView: View {
                     .foregroundStyle(.white)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .font(.largeTitle)
-
-                TextField("Search movies", text: $vm.searchText)
+                TextField("", text: $vm.searchText, prompt: Text("Search a movie").foregroundColor(.gray))
                     
                     .font(.title)
                     .font(Font.title.bold())
