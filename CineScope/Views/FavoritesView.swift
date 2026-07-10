@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct FavoritesView: View {
-    @EnvironmentObject var vm: FavoritesVM
+    
+    @State private var favorites: [MovieModel] = FavoritesStorage.shared.favorites
     
     let layout = [
         GridItem(.flexible()),
@@ -25,26 +26,28 @@ struct FavoritesView: View {
                     .font(.largeTitle)
                     .padding(.bottom)
                 LazyVGrid(columns: layout){
-                    ForEach(vm.favorites, id: \.id) { movie in
+                    ForEach(favorites, id: \.id) { movie in
                         MovieCard(title: movie.title, image: movie.posterPath, id: movie.id)
                             .frame(maxHeight: .infinity, alignment: .top)
                             .overlay(alignment: .topTrailing) {
                                 Button {
-                                    vm.toggleFavorite(movie: movie)
+                                    FavoritesStorage.shared.toggleFavorite(movie: movie)
+                                    favorites = FavoritesStorage.shared.favorites
                                 }label: {
-                                    Image(systemName: vm.isFavorite(id: movie.id) ? "heart.fill" : "heart.circle")
+                                    Image(systemName: (movie.isFavorite ?? false) ? "heart.fill" : "heart.circle")
                                         .font(.title2)
                                         .foregroundStyle(.red)
                                 }
                             }
                     }
                 }
-                //.frame(maxHeight: .infinity, alignment: .top)
             }
             .background(
                 LinearGradient(gradient: Gradient(colors: [.black, .blue.opacity(0.4)]), startPoint: .top, endPoint: .bottom)
             )
-
+        }
+        .onAppear {
+            favorites = FavoritesStorage.shared.favorites
         }
     }
 }

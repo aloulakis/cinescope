@@ -13,7 +13,7 @@ struct MovieModel: Identifiable, Codable {
     let posterPath: String?
     let voteAverage: Double?
     let backdropPath: String
-   // var isFsvorite: Bool?
+    var isFavorite: Bool?
 
     // pairnw to Response Apo to Movie kai krataw ta dedomena edw
     init(movie: Movie) {
@@ -22,7 +22,7 @@ struct MovieModel: Identifiable, Codable {
         self.posterPath = movie.poster_path ?? ""
         self.voteAverage = movie.vote_average ?? 0.0
         self.backdropPath = movie.backdrop_path ?? ""
-//        self.isFsvorite = SingleTon.shared.isFavorite(id: id)
+        self.isFavorite = FavoritesStorage.shared.isFavorite(id: movie.id)
     }
     
     init(details: DetailModel) {
@@ -31,6 +31,7 @@ struct MovieModel: Identifiable, Codable {
         self.posterPath = details.posterPath ?? ""
         self.voteAverage = Double(details.voteAverage ?? "") ?? 0
         self.backdropPath = details.backDropPath ?? ""
+        self.isFavorite = FavoritesStorage.shared.isFavorite(id: details.id)
     }
     
 

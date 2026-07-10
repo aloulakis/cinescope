@@ -6,14 +6,9 @@
 //
 
 import SwiftUI
-import Swinject
 
 struct HomeTabView: View {
-    @StateObject var favoritesVM = DIContainer.shared.container.resolve(FavoritesVM.self)!
-    
-    
     var body: some View {
-        
         TabView {
             Tab("Home", systemImage: "house") {
                 HomeView()
@@ -25,7 +20,6 @@ struct HomeTabView: View {
                 FavoritesView()
             }
         }
-        .environmentObject(favoritesVM)
     }
 }
 

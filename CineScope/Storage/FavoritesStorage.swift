@@ -1,25 +1,28 @@
 //
-//  FavoritesVM.swift
+//  FavoritesStorage.swift
 //  CineScope
 //
-//  Created by Alexandros Loulakis on 19/6/26.
+//  Created by Alexandros Loulakis on 9/7/26.
 //
 
 import Foundation
-import Combine
 
 
-class FavoritesVM: ObservableObject {
-    @Published var favorites: [MovieModel] = []
-        
+final class FavoritesStorage {
+    
+    static let shared = FavoritesStorage()
+    //private let key = "MovieId"
+    private(set) var favorites: [MovieModel] = []
+    
     init () {
         load()
     }
     
     func add(movie: MovieModel) {
         if favorites.contains(where: { $0.id == movie.id }) { return }
-        favorites.append(movie)
-        
+        var favoriteMovie = movie
+        favoriteMovie.isFavorite = true
+        favorites.append(favoriteMovie)
     }
     
     func remove(movie: MovieModel) {
@@ -52,4 +55,6 @@ class FavoritesVM: ObservableObject {
             }
         }
     }
+    
+    
 }

@@ -7,16 +7,15 @@
 
 import SwiftUI
 import Kingfisher
-
+import Swinject
 
 struct MovieDetailsHeader: View {
     let detail: DetailModel
-    @EnvironmentObject var favoritesVM: FavoritesVM
+    @State private var isFavorite: Bool = false
 
     var body: some View {
         ZStack {
             KFImage(URL(string: "https://image.tmdb.org/t/p/w780/\(detail.backDropPath ?? "")"))
-            //loadImage(path: "\(detail.backDropPath)", width: 400, height: 400, size: "w780")
                 .resizable()
                 .opacity(0.2)
             
@@ -47,16 +46,20 @@ struct MovieDetailsHeader: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .overlay(alignment: .topTrailing) {
                 Button {
-                    favoritesVM.toggleFavorite(movie: MovieModel(details: detail))
+                    FavoritesStorage.shared.toggleFavorite(movie: MovieModel(details: detail))
+                    isFavorite.toggle()
                 }label: {
                     
-                    Image(systemName: favoritesVM.isFavorite(id: detail.id) ? "heart.fill" : "heart.circle")
+                    Image(systemName: isFavorite ? "heart.fill" : "heart.circle")
                         .font(.title)
                         .foregroundStyle(.red)
                         
                 }
                 .padding(.trailing, 12)
             }
+        }
+        .onAppear {
+            isFavorite = MovieModel(details: detail).isFavorite ?? false
         }
     }
     

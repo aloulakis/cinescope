@@ -32,9 +32,6 @@ struct DetailView: View {
                 .padding(.bottom,90) // xwros sto telos wste na min kruvetai to teleutaio stoixeio
             }
             .ignoresSafeArea()
-//            .background((
-//                LinearGradient(gradient: Gradient(colors: [.gray.opacity(0.1), .black]), startPoint: .top, endPoint: .bottom)
-//            ))
             .background(
                 LinearGradient(gradient: Gradient(colors: [.black, .blue.opacity(0.4)]), startPoint: .top, endPoint: .bottom)
             )
