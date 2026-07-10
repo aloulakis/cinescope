@@ -10,6 +10,7 @@ import Kingfisher
 
 struct HomeView: View {
     @StateObject var vm = HomeVM()
+    @State private var favorites: [MovieModel] = FavoritesStorage.shared.favorites
 
     var sections: [(title: String, movies: [MovieModel])] {
         [
@@ -40,8 +41,8 @@ struct HomeView: View {
                         .font(.largeTitle)
                         .padding(.bottom)
                     
-                    featuredMovie(path: vm.trending[9].backdropPath,
-                                  id: vm.trending[9].id)
+                    featuredMovie(path: vm.trending.first?.backdropPath,
+                                  id: vm.trending.first?.id)
                         .padding(.bottom)
                     
                     VStack(spacing: 4) {
@@ -53,6 +54,9 @@ struct HomeView: View {
                 .background(
                     LinearGradient(gradient: Gradient(colors: [.black, .blue.opacity(0.4)]), startPoint: .top, endPoint: .bottom)
                 )
+                .onAppear {
+                    favorites = FavoritesStorage.shared.favorites
+                }
             }
         }
     }
@@ -62,7 +66,7 @@ struct HomeView: View {
             ZStack(alignment: .topLeading){
                 loadImage(path: path ?? "", size: "w780", aspectRatio: 16/9)
                 
-                loadImage(path: vm.trending[9].posterPath ?? "", size: "w342", aspectRatio: 2/3)
+                loadImage(path: vm.trending.first?.posterPath ?? "", size: "w342", aspectRatio: 2/3)
                     .frame(width: 100)
                     
                     .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -112,6 +116,16 @@ struct HomeView: View {
                 HStack(alignment: .top, spacing: 10) {
                     ForEach(movies) { item in
                         MovieCard(title: item.title, image: item.posterPath, id: item.id)
+                            .overlay(alignment: .topTrailing) {
+                                Button {
+                                    FavoritesStorage.shared.toggleFavorite(movie: item)
+                                    favorites = FavoritesStorage.shared.favorites
+                                }label: {
+                                    Image(systemName: favorites.contains(where: { $0.id == item.id }) ? "heart.fill" : "heart.circle")
+                                        .font(.title2)
+                                        .foregroundStyle(.red)
+                                }
+                            }
                     }
                 }
             }
