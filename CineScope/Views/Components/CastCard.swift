@@ -4,9 +4,9 @@
 //
 //  Created by Alexandros Loulakis on 30/6/26.
 //
-
 import SwiftUI
 import Kingfisher
+
 struct CastCard: View {
     let name: String?
     let profilePath: URL?

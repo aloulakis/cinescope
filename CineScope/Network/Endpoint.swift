@@ -4,7 +4,6 @@
 //
 //  Created by Alexandros Loulakis on 19/6/26.
 //
-
 import Foundation
 
 enum Endpoint {
@@ -19,7 +18,6 @@ enum Endpoint {
     case recommendations(id: Int)
     case search(query: String, page: Int)
 
-    
     var path: String {
         switch self {
         case .trending:
@@ -52,8 +50,6 @@ enum Endpoint {
         case .search:
             return "/search/movie"
         }
-        
-
     }
     var queryItems: [URLQueryItem] {
         switch self {

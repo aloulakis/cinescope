@@ -41,7 +41,6 @@ struct MovieDetailsHeader: View {
                 }
                 .padding(.bottom)
                 .foregroundStyle(.white)
-                
             }
             .padding(.leading)
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -50,7 +49,6 @@ struct MovieDetailsHeader: View {
                     FavoritesStorage.shared.toggleFavorite(movie: MovieModel(details: detail))
                     isFavorite.toggle()
                 }label: {
-                    
                     Image(systemName: isFavorite ? "heart.fill" : "heart.circle")
                         .font(.title)
                         .foregroundStyle(.red)

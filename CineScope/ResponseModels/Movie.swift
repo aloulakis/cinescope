@@ -4,9 +4,7 @@
 //
 //  Created by Alexandros Loulakis on 19/6/26.
 //
-
 import Foundation
-
 
 struct Movie: Decodable {
     let id: Int

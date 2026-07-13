@@ -4,14 +4,12 @@
 //
 //  Created by Alexandros Loulakis on 9/7/26.
 //
-
 import Foundation
-
 
 final class FavoritesStorage {
     
     static let shared = FavoritesStorage()
-    //private let key = "MovieId"
+
     private(set) var favorites: [MovieModel] = []
     
     init () {
@@ -48,6 +46,7 @@ final class FavoritesStorage {
             UserDefaults.standard.set(encoded, forKey: "MovieId")
         }
     }
+    
     func load() {
         if let decodedItems = UserDefaults.standard.data(forKey: "MovieId") {
             if let decoded = try? JSONDecoder().decode([MovieModel].self, from: decodedItems) {
@@ -55,6 +54,4 @@ final class FavoritesStorage {
             }
         }
     }
-    
-    
 }

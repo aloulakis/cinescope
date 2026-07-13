@@ -4,11 +4,9 @@
 //
 //  Created by Alexandros Loulakis on 19/6/26.
 //
-
 import Foundation
 
 protocol APIClientProtocol {
-    
     func request<T: Decodable>(_ endpoint: Endpoint) async throws -> T
 }
 

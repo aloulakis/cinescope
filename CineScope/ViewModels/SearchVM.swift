@@ -53,5 +53,4 @@ final class SearchVM: ObservableObject {
         guard currentPage < totalPages else {return}
         loadSearches(page: currentPage + 1)
     }
-    
 }

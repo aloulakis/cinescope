@@ -4,9 +4,7 @@
 //
 //  Created by Alexandros Loulakis on 29/6/26.
 //
-
 import Foundation
-
 
 struct CreditsModel {
     let id: Int?
@@ -18,5 +16,4 @@ struct CreditsModel {
         self.cast = credits.cast ?? []
         self.crew = credits.crew ?? []
     }
-    
 }

@@ -4,7 +4,6 @@
 //
 //  Created by Alexandros Loulakis on 19/6/26.
 //
-
 import SwiftUI
 import Kingfisher
 
@@ -109,7 +108,6 @@ struct HomeView: View {
                     .foregroundStyle(.blue)
                     .padding(.trailing)
             }
-
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(alignment: .top, spacing: 10) {
                     ForEach(movies) { item in

@@ -4,11 +4,9 @@
 //
 //  Created by Alexandros Loulakis on 22/6/26.
 //
-
 import Foundation
 
 struct CollectionDetailsResponse: Decodable {
-    
     let id: Int
     let name: String?
     let overview: String?

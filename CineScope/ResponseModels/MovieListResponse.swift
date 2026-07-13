@@ -4,9 +4,7 @@
 //
 //  Created by Alexandros Loulakis on 21/6/26.
 //
-
 import Foundation
-
 
 struct MovieListResponse: Decodable {
     let page: Int

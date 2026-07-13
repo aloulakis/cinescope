@@ -4,7 +4,6 @@
 //
 //  Created by Alexandros Loulakis on 29/6/26.
 //
-
 import Foundation
 import Combine
 
@@ -20,6 +19,7 @@ final class RecommendationsVM: ObservableObject {
         do {
             let response: MovieListResponse = try await APIClient.shared.request(.recommendations(id: id))
             self.recommendations = response.results.map { MovieModel(movie: $0) }
+            
             state = .loaded
         } catch {
             state = .error("Failed to fetch recommendations")

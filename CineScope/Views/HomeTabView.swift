@@ -4,7 +4,6 @@
 //
 //  Created by Alexandros Loulakis on 21/6/26.
 //
-
 import SwiftUI
 
 struct HomeTabView: View {

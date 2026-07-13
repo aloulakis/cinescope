@@ -4,7 +4,6 @@
 //
 //  Created by Alexandros Loulakis on 22/6/26.
 //
-
 import Foundation
 
 struct CollectionSummary: Decodable {

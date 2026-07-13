@@ -4,9 +4,7 @@
 //
 //  Created by Alexandros Loulakis on 8/7/26.
 //
-
 import Foundation
-
 
 struct MoviePage {
     let page: Int

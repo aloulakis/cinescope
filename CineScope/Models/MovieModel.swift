@@ -4,7 +4,6 @@
 //
 //  Created by Alexandros Loulakis on 24/6/26.
 //
-
 import Foundation
 
 struct MovieModel: Identifiable, Codable {
@@ -15,7 +14,6 @@ struct MovieModel: Identifiable, Codable {
     let backdropPath: URL?
     var isFavorite: Bool?
 
-    // pairnw to Response Apo to Movie kai krataw ta dedomena edw
     init(movie: Movie) {
         self.id = movie.id
         self.title = movie.title ?? ""

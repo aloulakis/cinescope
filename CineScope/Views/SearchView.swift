@@ -4,7 +4,6 @@
 //
 //  Created by Alexandros Loulakis on 19/6/26.
 //
-
 import SwiftUI
 
 struct SearchView: View {
@@ -29,11 +28,7 @@ struct SearchView: View {
                     .font(Font.title.bold())
                     .foregroundColor(.red)
                     .padding()
-                    
-                    
-                
-                    .background(.blue.opacity(0.1)
-                    )
+                    .background(.blue.opacity(0.1))
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(

@@ -29,7 +29,7 @@ struct DetailView: View {
                         movieDetails(details)
                     }
                 }
-                .padding(.bottom,90) // xwros sto telos wste na min kruvetai to teleutaio stoixeio
+                .padding(.bottom,90) // Add bottom spacing so the last item isnt hidden
             }
             .ignoresSafeArea()
             .background(

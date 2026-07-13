@@ -12,7 +12,6 @@ struct CastModel: Identifiable {
     let profilePath: URL?
     let character: String?
     
-    
     init (cast: Cast) {
         self.id = cast.id ?? 0
         self.name = cast.name ?? ""

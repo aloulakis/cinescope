@@ -21,22 +21,7 @@ final class DIContainer {
     }
     
     private func registerDependencies() {
-
-//        container.register(FavoritesVM.self) { _ in
-//            FavoritesVM()
-//        }
-//        .inObjectScope(.container)
         
-//        //an kapoios mou zitisei ena APIClientProtocol, tha tou dwsw ena APIClient me to token mou
-//        container.register(APIClientProtocol.self) { _ in
-//            APIClient(token: Secrets.tmdbToken)
-//        }
-//        
-//        //an kapoios mou zitisei homeVM, tha tou dwsw ena APIClientProtocol
-//        container.register(HomeVM.self) { resolver in
-//            let network = resolver.resolve(APIClientProtocol.self)!
-//            return HomeVM(apiClient: network)
-//        }
     }
 }
 

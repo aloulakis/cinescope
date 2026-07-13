@@ -4,7 +4,6 @@
 //
 //  Created by Alexandros Loulakis on 29/6/26.
 //
-
 import SwiftUI
 
 struct RecommendationsView: View {

@@ -4,7 +4,6 @@
 //
 //  Created by Alexandros Loulakis on 29/6/26.
 //
-
 import Foundation
 import Combine
 
@@ -31,5 +30,4 @@ final class CreditsVM: ObservableObject {
     func loadCredits(id: Int) {
         Task { await fetchCredits(id: id) }
     }
-
 }
