@@ -7,9 +7,9 @@
 import Foundation
 
 struct MoviePage {
-    let page: Int
-    let results: [Movie]
-    let totalPages: Int
+    let page: Int?
+    let results: [Movie]?
+    let totalPages: Int?
     
     init(response: MovieListResponse) {
         self.page = response.page

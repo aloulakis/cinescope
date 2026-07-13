@@ -18,7 +18,7 @@ final class RecommendationsVM: ObservableObject {
         
         do {
             let response: MovieListResponse = try await APIClient.shared.request(.recommendations(id: id))
-            self.recommendations = response.results.map { MovieModel(movie: $0) }
+            self.recommendations = response.results?.map { MovieModel(movie: $0) } ?? []
             
             state = .loaded
         } catch {

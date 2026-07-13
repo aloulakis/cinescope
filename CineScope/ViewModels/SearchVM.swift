@@ -25,7 +25,7 @@ final class SearchVM: ObservableObject {
             let response: MovieListResponse = try await APIClient.shared.request(.search(query: searchText, page: page))
             
             let pageResult = MoviePage(response: response)
-            let movies = pageResult.results.map { MovieModel(movie: $0) }
+            let movies = pageResult.results?.map { MovieModel(movie: $0) } ?? []
             
             if page == 1 {
                 searchMovies = movies
@@ -33,7 +33,7 @@ final class SearchVM: ObservableObject {
                 searchMovies += movies
             }
             
-            self.totalPages = pageResult.totalPages
+            self.totalPages = pageResult.totalPages ?? 1
             self.currentPage = page
             
             state = .loaded
