@@ -10,13 +10,13 @@ import Kingfisher
 
 struct MovieCard: View {
     let title: String?
-    let image: String?
+    let image: URL?
     let id: Int
 
     var body: some View {
         NavigationLink(destination: DetailView(id: id)) {
             VStack() {
-                KFImage(URL(string: "https://image.tmdb.org/t/p/w342/\(image ?? "")"))
+                KFImage(image)
                     .placeholder {
                         ZStack {
                             Rectangle()
@@ -39,6 +39,6 @@ struct MovieCard: View {
     }
 }
 
-#Preview {
-    MovieCard(title: "Fight Club", image: "", id: 550)
-}
+//#Preview {
+//    MovieCard(title: "Fight Club", image: "", id: 550)
+//}

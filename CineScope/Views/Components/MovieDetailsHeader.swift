@@ -15,12 +15,13 @@ struct MovieDetailsHeader: View {
 
     var body: some View {
         ZStack {
-            KFImage(URL(string: "https://image.tmdb.org/t/p/w780/\(detail.backDropPath ?? "")"))
-                .resizable()
+            loadImage(path: detail.backdropPath)
                 .opacity(0.2)
             
             HStack(spacing: 30) {
-                loadImage(path: "\(detail.posterPath ?? "")", width: 140, height: 200, size: "w342")
+                loadImage(path: detail.posterPath)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                    .frame(width: 140, height: 200)
                     .opacity(0.6)
                 
                 VStack(alignment: .leading, spacing: 5) {
@@ -63,11 +64,9 @@ struct MovieDetailsHeader: View {
         }
     }
     
-    private func loadImage(path: String, width: Int, height: Int, size: String) -> some View {
-        KFImage(URL(string:"https://image.tmdb.org/t/p/\(size)/\(path)"))
+    private func loadImage(path: URL?) -> some View {
+        KFImage(path)
             .resizable()
-            .clipShape(RoundedRectangle(cornerRadius: 8))
-            .frame(width: CGFloat(width), height: CGFloat(height))
     }
 }
 

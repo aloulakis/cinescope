@@ -9,11 +9,11 @@ import SwiftUI
 import Kingfisher
 struct CastCard: View {
     let name: String?
-    let profilePath: String?
+    let profilePath: URL?
     
     var body: some View {
         VStack{
-            loadImage(path: profilePath ?? "")
+            loadImage(path: profilePath)
                 //.frame(width: 100)
             
             Text(name ?? "")
@@ -24,12 +24,10 @@ struct CastCard: View {
                 .frame(width:100)
         }
         .padding(.bottom)
-        //.background(.yellow)
-        //.frame(width: 100)
     }
     
-    private func loadImage(path: String) -> some View {
-        KFImage(URL(string:"https://image.tmdb.org/t/p/w342/\(path)"))
+    private func loadImage(path: URL?) -> some View {
+        KFImage(path)
             .placeholder {
                 Image(systemName: "person.circle.fill")
                     .resizable()

@@ -10,29 +10,27 @@ import Foundation
 struct MovieModel: Identifiable, Codable {
     let id: Int
     let title: String?
-    let posterPath: String?
+    let posterPath: URL?
     let voteAverage: Double?
-    let backdropPath: String
+    let backdropPath: URL?
     var isFavorite: Bool?
 
     // pairnw to Response Apo to Movie kai krataw ta dedomena edw
     init(movie: Movie) {
         self.id = movie.id
         self.title = movie.title ?? ""
-        self.posterPath = movie.poster_path ?? ""
+        self.posterPath = URL(string: "https://image.tmdb.org/t/p/w342/\(movie.poster_path ?? "")")
         self.voteAverage = movie.vote_average ?? 0.0
-        self.backdropPath = movie.backdrop_path ?? ""
+        self.backdropPath = URL(string: "https://image.tmdb.org/t/p/w780/\(movie.backdrop_path ?? "")")
         self.isFavorite = FavoritesStorage.shared.isFavorite(id: movie.id)
     }
     
     init(details: DetailModel) {
         self.id = details.id
         self.title = details.title ?? ""
-        self.posterPath = details.posterPath ?? ""
+        self.posterPath = details.posterPath
         self.voteAverage = Double(details.voteAverage ?? "") ?? 0
-        self.backdropPath = details.backDropPath ?? ""
+        self.backdropPath = details.backdropPath
         self.isFavorite = FavoritesStorage.shared.isFavorite(id: details.id)
     }
-    
-
 }

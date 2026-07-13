@@ -61,14 +61,13 @@ struct HomeView: View {
         }
     }
     
-    private func featuredMovie(path: String?, id: Int?) -> some View {
+    private func featuredMovie(path: URL?, id: Int?) -> some View {
         NavigationLink(destination: DetailView(id: id ?? 0)) {
             ZStack(alignment: .topLeading){
-                loadImage(path: path ?? "", size: "w780", aspectRatio: 16/9)
+                loadImage(path: path)
                 
-                loadImage(path: vm.trending.first?.posterPath ?? "", size: "w342", aspectRatio: 2/3)
+                loadImage(path: vm.trending.first?.posterPath,)
                     .frame(width: 100)
-                    
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
@@ -81,8 +80,8 @@ struct HomeView: View {
         }
     }
     
-    private func loadImage(path: String, size: String, aspectRatio: CGFloat) -> some View {
-        KFImage(URL(string:"https://image.tmdb.org/t/p/\(size)/\(path)"))
+    private func loadImage(path: URL?) -> some View {
+        KFImage(path)
             .placeholder {
                 ZStack {
                     Rectangle()
@@ -94,7 +93,6 @@ struct HomeView: View {
             }
             .resizable()
             .scaledToFit()
-            //.aspectRatio(aspectRatio, contentMode: .fit)
     }
 
     private func movieSection(title: String, movies: [MovieModel]) -> some View {

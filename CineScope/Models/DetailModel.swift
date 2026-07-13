@@ -9,12 +9,12 @@ import Foundation
 
 struct DetailModel {
     let adult: Bool?
-    let backDropPath: String?
+    let backdropPath: URL?
     let belongsToCollection: CollectionSummary?
     let genres: [Genre]
     let id: Int
     let overview: String?
-    let posterPath: String?
+    let posterPath: URL?
     let year: String?
     let runtime: Int?
     let title: String?
@@ -22,12 +22,12 @@ struct DetailModel {
     
     init(details: MovieDetailsResponse) {
         self.adult = details.adult
-        self.backDropPath = details.backdrop_path ?? ""
+        self.backdropPath = URL(string: "https://image.tmdb.org/t/p/w780/\(details.backdrop_path ?? "")")
         self.belongsToCollection = details.belongs_to_collection
         self.genres = details.genres ?? []
         self.id = details.id ?? 0
         self.overview = details.overview ?? ""
-        self.posterPath = details.poster_path ?? ""
+        self.posterPath = URL(string: "https://image.tmdb.org/t/p/w342/\(details.poster_path ?? "")")
         self.year = details.release_date ?? ""
         self.runtime = details.runtime ?? 0
         self.title = details.title ?? ""
