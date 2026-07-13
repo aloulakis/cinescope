@@ -20,7 +20,7 @@ struct MovieCard: View {
                     .placeholder {
                         ZStack {
                             Rectangle()
-                                .fill(Color(.gray.opacity(0.5)))
+                                .fill(.gray.opacity(0.5))
                             Image(systemName: "film")
                                 .font(.largeTitle)
                                 .foregroundStyle(.secondary)

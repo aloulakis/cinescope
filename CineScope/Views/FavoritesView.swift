@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct FavoritesView: View {
-    
-    @State private var favorites: [MovieModel] = FavoritesStorage.shared.favorites
+    @State private var refreshId = UserStorage.shared.refreshId
     
     let layout = [
         GridItem(.flexible()),
@@ -26,30 +25,31 @@ struct FavoritesView: View {
                     .font(.largeTitle)
                     .padding(.bottom)
                 LazyVGrid(columns: layout){
-                    ForEach(favorites, id: \.id) { movie in
-                        MovieCard(title: movie.title, image: movie.posterPath, id: movie.id)
-                            .frame(maxHeight: .infinity, alignment: .top)
-                            .overlay(alignment: .topTrailing) {
-                                Button {
-                                    FavoritesStorage.shared.toggleFavorite(movie: movie)
-                                    favorites = FavoritesStorage.shared.favorites
-                                }label: {
-                                    Image(systemName: (movie.isFavorite ?? false) ? "heart.fill" : "heart.circle")
-                                        .font(.title2)
-                                        .foregroundStyle(.red)
+                        ForEach(UserStorage.shared.getFavorites(), id: \.id) { movie in
+                            MovieCard(title: movie.title, image: movie.posterPath, id: movie.id)
+                                .frame(maxHeight: .infinity, alignment: .top)
+                                .overlay(alignment: .topTrailing) {
+                                    Button {
+                                        UserStorage.shared.toggleFavorite(movie: movie, isFavorite: movie.isFavorite ?? false)
+                                        refreshId = UserStorage.shared.refreshId
+                                        
+                                    }label: {
+                                        Image(systemName: (movie.isFavorite ?? false) ? "heart.fill" : "heart.circle")
+                                            .font(.title2)
+                                            .foregroundStyle(.red)
+                                    }
                                 }
-                            }
+                        }.id(refreshId)
                     }
                 }
+                .background(
+                    LinearGradient(gradient: Gradient(colors: [.black, .blue.opacity(0.4)]), startPoint: .top, endPoint: .bottom)
+                )
             }
-            .background(
-                LinearGradient(gradient: Gradient(colors: [.black, .blue.opacity(0.4)]), startPoint: .top, endPoint: .bottom)
-            )
+            .onAppear {
+                refreshId = UUID()
+            }
         }
-        .onAppear {
-            favorites = FavoritesStorage.shared.favorites
-        }
-    }
 }
 
 //#Preview {

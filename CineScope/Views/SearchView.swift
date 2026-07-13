@@ -36,8 +36,7 @@ struct SearchView: View {
                                 lineWidth: 5)
                     )
                     .cornerRadius(10)
-                
-                    .onChange(of: vm.searchText) {
+                    .onChange(of: vm.searchText) { _ in
                         vm.loadSearches(page: 1)
                     }
                 

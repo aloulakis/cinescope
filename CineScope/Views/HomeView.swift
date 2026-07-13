@@ -9,7 +9,7 @@ import Kingfisher
 
 struct HomeView: View {
     @StateObject var vm = HomeVM()
-    @State private var favorites: [MovieModel] = FavoritesStorage.shared.favorites
+    @State private var refreshId = UserStorage.shared.refreshId
 
     var sections: [(title: String, movies: [MovieModel])] {
         [
@@ -53,9 +53,6 @@ struct HomeView: View {
                 .background(
                     LinearGradient(gradient: Gradient(colors: [.black, .blue.opacity(0.4)]), startPoint: .top, endPoint: .bottom)
                 )
-                .onAppear {
-                    favorites = FavoritesStorage.shared.favorites
-                }
             }
         }
     }
@@ -84,7 +81,7 @@ struct HomeView: View {
             .placeholder {
                 ZStack {
                     Rectangle()
-                        .fill(Color(.gray.opacity(0.5)))
+                        .fill(.gray.opacity(0.5))
                     Image(systemName: "film")
                         .font(.largeTitle)
                         .foregroundStyle(.secondary)
@@ -114,10 +111,11 @@ struct HomeView: View {
                         MovieCard(title: item.title, image: item.posterPath, id: item.id)
                             .overlay(alignment: .topTrailing) {
                                 Button {
-                                    FavoritesStorage.shared.toggleFavorite(movie: item)
-                                    favorites = FavoritesStorage.shared.favorites
+                                    let isFav = UserStorage.shared.getFavorites().contains(where: { $0.id == item.id })
+                                    UserStorage.shared.toggleFavorite(movie: item, isFavorite: isFav)
+                                    refreshId = UserStorage.shared.refreshId
                                 }label: {
-                                    Image(systemName: favorites.contains(where: { $0.id == item.id }) ? "heart.fill" : "heart.circle")
+                                    Image(systemName: UserStorage.shared.getFavorites().contains(where: { $0.id == item.id }) ? "heart.fill" : "heart.circle")
                                         .font(.title2)
                                         .foregroundStyle(.red)
                                 }
@@ -125,6 +123,10 @@ struct HomeView: View {
                     }
                 }
             }
+        }
+        .id(refreshId)
+        .onAppear {
+            refreshId = UUID()
         }
     }
 }

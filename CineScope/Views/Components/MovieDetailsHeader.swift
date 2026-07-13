@@ -11,7 +11,7 @@ import Swinject
 
 struct MovieDetailsHeader: View {
     let detail: DetailModel
-    @State private var isFavorite: Bool = false
+    @State private var refreshId = UserStorage.shared.refreshId
 
     var body: some View {
         ZStack {
@@ -46,19 +46,20 @@ struct MovieDetailsHeader: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .overlay(alignment: .topTrailing) {
                 Button {
-                    FavoritesStorage.shared.toggleFavorite(movie: MovieModel(details: detail))
-                    isFavorite.toggle()
+                    UserStorage.shared.toggleFavorite(movie: MovieModel(details: detail), isFavorite: MovieModel(details: detail).isFavorite ?? false)
+                    refreshId = UserStorage.shared.refreshId
                 }label: {
-                    Image(systemName: isFavorite ? "heart.fill" : "heart.circle")
+                    Image(systemName: (MovieModel(details: detail).isFavorite ?? false) ? "heart.fill" : "heart.circle")
                         .font(.title)
                         .foregroundStyle(.red)
                         
                 }
                 .padding(.trailing, 12)
             }
+            .id(refreshId)
         }
         .onAppear {
-            isFavorite = MovieModel(details: detail).isFavorite ?? false
+            refreshId = UUID()
         }
     }
     

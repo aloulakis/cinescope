@@ -6,14 +6,19 @@
 //
 import Foundation
 
-final class FavoritesStorage {
+final class UserStorage {
     
-    static let shared = FavoritesStorage()
+    static let shared = UserStorage()
 
     private(set) var favorites: [MovieModel] = []
+    private(set) var refreshId = UUID()
     
     init () {
         load()
+    }
+    
+    func getFavorites() -> [MovieModel] {
+        favorites
     }
     
     func add(movie: MovieModel) {
@@ -31,14 +36,15 @@ final class FavoritesStorage {
         favorites.contains(where: { $0.id == id })
     }
     
-    func toggleFavorite(movie: MovieModel) {
-        if isFavorite(id: movie.id) {
+    func toggleFavorite(movie: MovieModel, isFavorite: Bool) {
+        if  isFavorite {
             remove(movie: movie)
             save()
         } else {
             add(movie: movie)
             save()
         }
+        refreshId = UUID()
     }
     
     func save() {

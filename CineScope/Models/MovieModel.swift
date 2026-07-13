@@ -20,7 +20,7 @@ struct MovieModel: Identifiable, Codable {
         self.posterPath = URL(string: "https://image.tmdb.org/t/p/w342/\(movie.poster_path ?? "")")
         self.voteAverage = movie.vote_average ?? 0.0
         self.backdropPath = URL(string: "https://image.tmdb.org/t/p/w780/\(movie.backdrop_path ?? "")")
-        self.isFavorite = FavoritesStorage.shared.isFavorite(id: movie.id)
+        self.isFavorite = UserStorage.shared.isFavorite(id: movie.id)
     }
     
     init(details: DetailModel) {
@@ -29,6 +29,6 @@ struct MovieModel: Identifiable, Codable {
         self.posterPath = details.posterPath
         self.voteAverage = Double(details.voteAverage ?? "") ?? 0
         self.backdropPath = details.backdropPath
-        self.isFavorite = FavoritesStorage.shared.isFavorite(id: details.id)
+        self.isFavorite = UserStorage.shared.isFavorite(id: details.id)
     }
 }

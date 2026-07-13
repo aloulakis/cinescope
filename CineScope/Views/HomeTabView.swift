@@ -9,15 +9,20 @@ import SwiftUI
 struct HomeTabView: View {
     var body: some View {
         TabView {
-            Tab("Home", systemImage: "house") {
-                HomeView()
-            }
-            Tab("Search", systemImage: "magnifyingglass") {
-                SearchView()
-            }
-            Tab("Saved", systemImage: "heart.square") {
-                FavoritesView()
-            }
+            HomeView()
+                .tabItem {
+                    Label("Home", systemImage: "house")
+                }
+
+            SearchView()
+                .tabItem {
+                    Label("Search", systemImage: "magnifyingglass")
+                }
+
+            FavoritesView()
+                .tabItem {
+                    Label("Saved", systemImage: "heart.square")
+                }
         }
     }
 }
