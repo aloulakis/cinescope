@@ -6,10 +6,18 @@
 //
 import SwiftUI
 import Kingfisher
+import Swinject
 
 struct HomeView: View {
-    @StateObject var vm = HomeVM()
+    @StateObject var vm: HomeVM
     @State private var refreshId = UserStorage.shared.refreshId
+    
+    let userStorage: UserStorage
+    
+    init(vm: HomeVM, userStorage: UserStorage) {
+        _vm = StateObject(wrappedValue: vm)
+        self.userStorage = userStorage
+    }
 
     var sections: [(title: String, movies: [MovieModel])] {
         [
@@ -58,7 +66,7 @@ struct HomeView: View {
     }
     
     private func featuredMovie(path: URL?, id: Int?) -> some View {
-        NavigationLink(destination: DetailView(id: id ?? 0)) {
+        NavigationLink(destination: DIContainer.shared.container.resolve(DetailView.self, argument: id ?? 0)!) {
             ZStack(alignment: .topLeading){
                 loadImage(path: path)
                 
@@ -129,8 +137,4 @@ struct HomeView: View {
             refreshId = UUID()
         }
     }
-}
-
-#Preview {
-    HomeView()
 }

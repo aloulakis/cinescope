@@ -7,14 +7,22 @@
 
 import SwiftUI
 import Kingfisher
+import Swinject
 
 struct DetailView: View {
-    
-    @StateObject var vm = DetailVM()
-    
+
+    @StateObject var vm: DetailVM
+
     @State var isExpanded: Bool = false
     let id: Int
-    
+    let userStorage: UserStorage
+
+    init(vm: DetailVM, id: Int, userStorage: UserStorage) {
+        _vm = StateObject(wrappedValue: vm)
+        self.id = id
+        self.userStorage = userStorage
+    }
+
     var body: some View {
         switch vm.state {
         case.loading:
@@ -42,11 +50,11 @@ struct DetailView: View {
     
     private func movieDetails (_ detail: DetailModel ) -> some View {
         VStack(alignment: .leading, spacing: 10) {
-            MovieDetailsHeader(detail: detail)
+            MovieDetailsHeader(detail: detail, userStorage: userStorage)
             overview(detail.overview ?? "")
             genreSection(detail.genres)
-            CreditsView(id: detail.id)
-            RecommendationsView(id: detail.id)
+            DIContainer.shared.container.resolve(CreditsView.self, argument: detail.id)!
+            DIContainer.shared.container.resolve(RecommendationsView.self, argument: detail.id)!
         }
         .font(.system(.body, design: .serif))
     }
@@ -80,8 +88,4 @@ struct DetailView: View {
             .padding(.leading)
         }
     }
-}
-
-#Preview {
-    DetailView(id: 500)
 }

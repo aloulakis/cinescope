@@ -5,11 +5,17 @@
 //  Created by Alexandros Loulakis on 29/6/26.
 //
 import SwiftUI
+import Swinject
 
 struct RecommendationsView: View {
-    @StateObject var vm = RecommendationsVM()
+    @StateObject var vm: RecommendationsVM
     let id: Int
-    
+
+    init(vm: RecommendationsVM, id: Int) {
+        _vm = StateObject(wrappedValue: vm)
+        self.id = id
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text("More like this")
@@ -29,5 +35,5 @@ struct RecommendationsView: View {
 }
 
 #Preview {
-    RecommendationsView(id: 550)
+    DIContainer.shared.container.resolve(RecommendationsView.self, argument: 550)!
 }

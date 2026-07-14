@@ -10,19 +10,24 @@ import Combine
 
 @MainActor
 final class SearchVM: ObservableObject {
-    
     @Published var searchMovies: [MovieModel] = []
     @Published var searchText: String = ""
     @Published var state: ViewState = .loading
     
     private var currentPage = 1
     private var totalPages = 1
+    
+    private let apiClient: APIClient
+
+    init(apiClient: APIClient) {
+        self.apiClient = apiClient
+    }
 
     func fetchSearchMovie(page: Int) async {
         state = .loading
         
         do {
-            let response: MovieListResponse = try await APIClient.shared.request(.search(query: searchText, page: page))
+            let response: MovieListResponse = try await apiClient.request(.search(query: searchText, page: page))
             
             let pageResult = MoviePage(response: response)
             let movies = pageResult.results?.map { MovieModel(movie: $0) } ?? []

@@ -14,7 +14,6 @@ struct CastCard: View {
     var body: some View {
         VStack{
             loadImage(path: profilePath)
-                //.frame(width: 100)
             
             Text(name ?? "")
                 .foregroundStyle(.gray)
@@ -38,7 +37,3 @@ struct CastCard: View {
             .frame(width: 100, height: 100)
     }
 }
-
-//#Preview {
-//    CastCard()
-//}

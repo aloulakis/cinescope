@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Kingfisher
+import Swinject
 
 struct MovieCard: View {
     let title: String?
@@ -14,7 +15,7 @@ struct MovieCard: View {
     let id: Int
 
     var body: some View {
-        NavigationLink(destination: DetailView(id: id)) {
+        NavigationLink(destination: DIContainer.shared.container.resolve(DetailView.self, argument: id)!) {
             VStack() {
                 KFImage(image)
                     .placeholder {
@@ -38,7 +39,3 @@ struct MovieCard: View {
         }
     }
 }
-
-//#Preview {
-//    MovieCard(title: "Fight Club", image: "", id: 550)
-//}

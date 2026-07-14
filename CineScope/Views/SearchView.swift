@@ -5,16 +5,21 @@
 //  Created by Alexandros Loulakis on 19/6/26.
 //
 import SwiftUI
+import Swinject
 
 struct SearchView: View {
-    @StateObject var vm = SearchVM()
-    
+    @StateObject var vm: SearchVM
+
     let layout = [
         GridItem(.flexible()),
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
-    
+
+    init(vm: SearchVM) {
+        _vm = StateObject(wrappedValue: vm)
+    }
+
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
@@ -62,8 +67,4 @@ struct SearchView: View {
             )
         }
     }
-}
-
-#Preview {
-    SearchView()
 }

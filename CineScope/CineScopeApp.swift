@@ -6,12 +6,13 @@
 //
 
 import SwiftUI
+import Swinject
 
 @main
 struct CineScopeApp: App {
     var body: some Scene {
         WindowGroup {
-            HomeTabView()
+            DIContainer.shared.container.resolve(HomeTabView.self)!
         }
     }
 }

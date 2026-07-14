@@ -15,7 +15,11 @@ final class HomeVM: ObservableObject {
     
     @Published var state: ViewState = .loading
     
-    init() { }
+    private let apiClient: APIClient
+
+    init(apiClient: APIClient) {
+        self.apiClient = apiClient
+    }
 
     func fetchMovies() async {
         await withThrowingTaskGroup(of: Void.self) { group in
@@ -68,7 +72,7 @@ final class HomeVM: ObservableObject {
     
     private func getTrending() async -> MovieListResponse? {
         do {
-            return try await APIClient.shared.request(.trending)
+            return try await apiClient.request(.trending)
         }
         catch {
             return nil
@@ -77,7 +81,7 @@ final class HomeVM: ObservableObject {
     
     private func getPopular() async -> MovieListResponse? {
         do {
-            return try await APIClient.shared.request(.popular)
+            return try await apiClient.request(.popular)
         }
         catch {
             return nil
@@ -86,7 +90,7 @@ final class HomeVM: ObservableObject {
     
     private func getTopRated() async -> MovieListResponse? {
         do {
-            return try await APIClient.shared.request(.topRated)
+            return try await apiClient.request(.topRated)
         }
         catch {
             return nil
@@ -95,7 +99,7 @@ final class HomeVM: ObservableObject {
     
     private func upcoming() async -> MovieListResponse? {
         do {
-            return try await APIClient.shared.request(.upComing)
+            return try await apiClient.request(.upComing)
         }
         catch {
             return nil

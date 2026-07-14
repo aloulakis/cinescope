@@ -10,6 +10,12 @@ import SwiftUI
 struct FavoritesView: View {
     @State private var refreshId = UserStorage.shared.refreshId
     
+    let userStorage: UserStorage
+    
+    init(userStorage: UserStorage) {
+        self.userStorage = userStorage
+    }
+
     let layout = [
         GridItem(.flexible()),
         GridItem(.flexible()),
@@ -25,14 +31,14 @@ struct FavoritesView: View {
                     .font(.largeTitle)
                     .padding(.bottom)
                 LazyVGrid(columns: layout){
-                        ForEach(UserStorage.shared.getFavorites(), id: \.id) { movie in
+                        ForEach(userStorage.getFavorites(), id: \.id) { movie in
                             MovieCard(title: movie.title, image: movie.posterPath, id: movie.id)
                                 .frame(maxHeight: .infinity, alignment: .top)
                                 .overlay(alignment: .topTrailing) {
                                     Button {
-                                        UserStorage.shared.toggleFavorite(movie: movie, isFavorite: movie.isFavorite ?? false)
+                                        userStorage.toggleFavorite(movie: movie, isFavorite: movie.isFavorite ?? false)
                                         refreshId = UserStorage.shared.refreshId
-                                        
+
                                     }label: {
                                         Image(systemName: (movie.isFavorite ?? false) ? "heart.fill" : "heart.circle")
                                             .font(.title2)
@@ -51,7 +57,3 @@ struct FavoritesView: View {
             }
         }
 }
-
-//#Preview {
-//    FavoritesView()
-//}

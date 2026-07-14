@@ -12,6 +12,8 @@ import Swinject
 struct MovieDetailsHeader: View {
     let detail: DetailModel
     @State private var refreshId = UserStorage.shared.refreshId
+    
+    let userStorage: UserStorage
 
     var body: some View {
         ZStack {
@@ -46,7 +48,7 @@ struct MovieDetailsHeader: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .overlay(alignment: .topTrailing) {
                 Button {
-                    UserStorage.shared.toggleFavorite(movie: MovieModel(details: detail), isFavorite: MovieModel(details: detail).isFavorite ?? false)
+                    userStorage.toggleFavorite(movie: MovieModel(details: detail), isFavorite: MovieModel(details: detail).isFavorite ?? false)
                     refreshId = UserStorage.shared.refreshId
                 }label: {
                     Image(systemName: (MovieModel(details: detail).isFavorite ?? false) ? "heart.fill" : "heart.circle")
@@ -68,7 +70,3 @@ struct MovieDetailsHeader: View {
             .resizable()
     }
 }
-
-//#Preview {
-//    MovieDetailsSection()
-//}

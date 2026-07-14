@@ -5,30 +5,31 @@
 //  Created by Alexandros Loulakis on 21/6/26.
 //
 import SwiftUI
+import Swinject
 
 struct HomeTabView: View {
+    let homeView: HomeView
+    let searchView: SearchView
+    let favoritesView: FavoritesView
+
     var body: some View {
         TabView {
-            HomeView()
+            homeView
                 .tabItem {
                     Label("Home", systemImage: "house")
                 }
 
-            SearchView()
+            searchView
                 .tabItem {
                     Label("Search", systemImage: "magnifyingglass")
                 }
 
-            FavoritesView()
+            favoritesView
                 .tabItem {
                     Label("Saved", systemImage: "heart.square")
                 }
         }
     }
-}
-
-#Preview {
-    HomeTabView()
 }
 
 
